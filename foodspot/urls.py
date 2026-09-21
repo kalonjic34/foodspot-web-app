@@ -19,5 +19,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",include("workspace.urls"))
+    path("workspace/",include("workspace.urls")),
+    path("",include("foodspot_app.urls"))
+    
 ]
