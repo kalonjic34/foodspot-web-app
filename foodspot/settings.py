@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'workspace',
     'foodspot_app',
     'recipes',
+    'comments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
