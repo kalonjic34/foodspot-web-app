@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Category, Recipe
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=("id","name","date_added")
+    search_fields =["name"]
+class RecipeAdmin(admin.ModelAdmin):
+    list_display=("id","name","date_added")
+
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Recipe,RecipeAdmin)
