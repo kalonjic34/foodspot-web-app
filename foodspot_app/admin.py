@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Recipe
+from .models import Category
 class CategoryAdmin(admin.ModelAdmin):
     list_display=("id","name","date_added")
     search_fields =["name"]
@@ -9,4 +9,3 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Recipe,RecipeAdmin)
