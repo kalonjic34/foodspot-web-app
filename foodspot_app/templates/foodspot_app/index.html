@@ -4,6 +4,7 @@
 
 <h3>Categories</h3>
 <div>
+    <a href="{% url "foodspot_app:add_category" %}">Add category</a>
     {% for category in categories %}    
         <div>
             <a href="{% url "foodspot_app:recipes" category.id %}"> {{ category }} </a>
