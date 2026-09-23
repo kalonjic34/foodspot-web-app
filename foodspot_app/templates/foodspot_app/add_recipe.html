@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<h3>Add Recipe</h3>
+<h3>Add new Recipe {% if category %} to {{ category.name }} {% endif %} </h3>
+
 <div>
     <form action="" method="post">
 
