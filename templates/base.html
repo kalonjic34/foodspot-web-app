@@ -6,9 +6,11 @@
     <title>FoodSpot</title>
 </head>
 <body>
-    <nav>
-        FoodSpot
-    </nav>
+    <header>
+        <div>
+            <a href="{% url "foodspot_app:index" %}">FoodSpot</a>
+        </div>
+    </header>
     <div class="container">
         {% block content %}
         
