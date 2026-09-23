@@ -2,5 +2,12 @@
 
 {% block content %}
 
-
+<h3>Categories</h3>
+<div>
+    {% for category in categories %}    
+        <div>
+            <a href="{% url "foodspot_app:recipes" category.id %}"> {{ category }} </a>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}
