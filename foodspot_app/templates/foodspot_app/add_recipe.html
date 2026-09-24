@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-
+{% load django_bootstrap5 %}
 {% block content %}
 
-<h3>Add new Recipe {% if category %} to {{ category.name }} {% endif %} </h3>
+<h3>Create a recipe {% if category %} for {{ category.name }} {% endif %}</h3>
 
 <div>
+    
     <form action="" method="post">
 
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save recipe</button>
+        {% bootstrap_form form %}
+        {%bootstrap_button button_type="submit" content="Create recipe"%}
     </form>
 </div>
 {% endblock content %}
