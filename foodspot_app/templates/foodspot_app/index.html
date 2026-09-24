@@ -1,14 +1,27 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 
-<h3>Categories</h3>
-<div>
-    <a href="{% url "foodspot_app:add_category" %}">Add category</a>
-    {% for category in categories %}    
-        <div>
-            <a href="{% url "foodspot_app:recipes" category.id %}"> {{ category }} </a>
-        </div>
-    {% endfor %}
+
+<div class='container'>
+    <div class="col-md-12">
+        <h3 class="display-4">TheFoodSpot</h3>
+        <p class="lead">Find recipes that match the ingredients in your kitchen, save your favourites, and build a shopping list for everything you need.
+        </p>
+    </div>
+
+    <h6 class="display-5">Explore recipe categories</h6>
+
+    <div class="mt-8">
+        <ul class="category-list">
+        {% for category in categories %}
+            <div class="card mb-2">
+                <a class="card-title" href="{% url "foodspot_app:recipes" category.id %}"> {{ category }} </a>
+            </div>
+        {% endfor %}
+            <a href="{% url "foodspot_app:add_category" %}">Create a category</a>
+        </ul>
+    </div>
 </div>
 {% endblock content %}
