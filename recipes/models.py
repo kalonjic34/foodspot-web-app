@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 from foodspot_app.models import Category
 
 class Recipe(models.Model):
@@ -9,6 +9,7 @@ class Recipe(models.Model):
     directions=models.TextField()
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return self.name
