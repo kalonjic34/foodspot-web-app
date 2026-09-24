@@ -7,9 +7,25 @@
 </head>
 <body>
     <header>
+        <a href="{% url "foodspot_app:index" %}">FoodSpot</a>
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="{% url "foodspot_app:add_recipe_no_genre" %}">Add recipes</a></li>
+            <li><span>welcome, {{ user.username }}</span></li>
+                {% else %}
+                <li><a href="{% url "accounts:register" %}">Register</a></li>
+                <li><a href="{% url "accounts:login" %}">Login</a></li>
+
+            {% endif %}
+            </ul>
         <div>
-            <a href="{% url "foodspot_app:index" %}">FoodSpot</a>
-            <a href="{% url "foodspot_app:add_recipe_no_genre" %}">Add recipes</a>
+            {% if user.is_authenticated %}
+            <form action="{% url "accounts:logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            {% endif %}
+            
         </div>
     </header>
     <div class="container">
