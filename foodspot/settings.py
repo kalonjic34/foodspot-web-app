@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'foodspot_app',
     'recipes',
     'comments',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,3 +130,7 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+LOGIN_REDIRECT_URL = "foodspot_app:index"
+LOGOUT_REDIRECT_URL = "foodspot_app:index"
+LOGIN_URL = "accounts:index"
