@@ -11,6 +11,7 @@ class Recipe(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name="recipes")    
+    imgage = models.ImageField(upload_to="recipe_images/",null=True, blank=True)
     def get_absolute_url(self):
         return reverse("recipes:recipe_detail", args=[str(self.id)])
     
