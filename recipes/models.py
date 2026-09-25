@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from foodspot_app.models import Category
 
 class Recipe(models.Model):
@@ -9,7 +10,9 @@ class Recipe(models.Model):
     directions=models.TextField()
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name="recipes")    
+    def get_absolute_url(self):
+        return reverse("recipes:recipe_detail", args=[str(self.id)])
     
     def __str__(self):
         return self.name
