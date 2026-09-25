@@ -22,10 +22,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("workspace/",include("workspace.urls")),
-    path("",include("foodspot_app.urls")),
-    path("recipes/",include("recipes.urls")),
-    path("comments/",include("comments.urls")),
-    path("accounts/",include("accounts.urls"))
-    
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("workspace/", include(("workspace.urls", "workspace"), namespace="workspace")),
+    path("", include(("foodspot_app.urls", "foodspot_app"), namespace="foodspot_app")),
+    path("recipes/", include(("recipes.urls", "recipes"), namespace="recipes")),
+    path("comments/", include(("comments.urls", "comments"), namespace="comments")),
+    path("accounts/", include(("accounts.urls", "accounts"), namespace="accounts")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
