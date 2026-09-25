@@ -2,19 +2,55 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
- <div>
+<div>
     <div class="card mb-3">
-            <h6 class="card-header"> {{ recipe.name }}</i></h6>
-            <div class="card-body"> 
-                <i>About this recipe</i>
-                <p>{{ recipe.description }} </p>
-                <i>What you need</i>
-            <p> {{ recipe.ingredients }} </p>
+        <h6 class="card-header">{{ recipe.name }}</h6>
+        <div class="card-body">
+            <i>About this recipe</i>
+            <p>{{ recipe.description }}</p>
+            <i>What you need</i>
+            <p>{{ recipe.ingredients }}</p>
             <i>How to make it</i>
-            <p> {{ recipe.directions }} </p>
-            </div>
-            
+            <p>{{ recipe.directions }}</p>
+        </div>
     </div>
- </div>
 
+    <div class="mt-4">
+        <h5>Comments</h5>
+        {% for comment in comments %}
+            <div class="border rounded p-3 mb-2">
+                <div class="d-flex align-items-center mb-2">
+                    {% if comment.user and comment.user.profile and comment.user.profile.profile_photo %}
+                        <img src="{{ comment.user.profile.profile_photo.url }}" alt="profile" class="rounded-circle me-2" style="width:40px; height:40px; object-fit:cover;">
+                    {% else %}
+                        <span class="rounded-circle bg-dark text-white d-inline-flex align-items-center justify-content-center me-2" style="width:40px; height:40px; font-size:14px; font-weight:700;">
+                            {{ comment.user.username|first|upper|default:"U" }}
+                        </span>
+                    {% endif %}
+                    <strong>{{ comment.user.username }}</strong>
+                </div>
+                <div>commented on {{ comment.date_added|date:"F d, Y" }} at {{ comment.date_added|time:"H:i" }}:</div>
+                <div class="mt-2">{{ comment.text }}</div>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+        <div class="mt-4">
+
+        <h5>Add a comment</h5>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            <button type="submit" class="btn btn-primary">Post comment</button>
+        </form>
+        </div>
+        {% else %}
+        <p><a href="{% url "accounts:login" %}">Login</a> to post a comment</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}
