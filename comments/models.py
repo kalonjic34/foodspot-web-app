@@ -10,5 +10,5 @@ class Comment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Commnets by {self.user.username} on {self.recipe.text}"
+        return f"Comment by {self.user.username} on {self.recipe.name}"
     
