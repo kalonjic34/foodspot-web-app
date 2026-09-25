@@ -4,32 +4,41 @@
 {% block content %}
 <h3>Recipes in <i>{{category}}</i></h3>
 
- <div>
+<div>
     {% for recipe in recipes %}
-        <div class="card mb-3">
-                <h6 class="card-header"> {{ recipe.name }}, <i>added {{ recipe.date_added | date:"M d, Y H:i"}}</i> </h6>
-
-                <div class="card-body">
-                    <p>About this recipe:</p>
-                    {{recipe.description}}
-                    <div class="row align-items-center mt-3">
-                        <div class="col">
-                            <small><a href="{% url 'recipes:recipe_detail' recipe.id %}">Open recipe details</a></small>
+    <div class="card mb-3 shadow-sm border-0 mx-auto" style="max-width: 640px;">
+              <div class="row g-0 align-items-center">
+                 <div class="col-md-4">
+                     {% if recipe.imgage %}
+                        <img src="{{ recipe.imgage.url }}" alt="{{ recipe.name }}" class="img-fluid h-100 w-100" style="object-fit:cover; min-height:180px;">
+                    {% else %}
+                            <div class="d-flex align-items-center justify-content-center bg-light text-muted" style="height:180px; width:100%;">
+                              No image
                         </div>
-                        <div class="col-auto d-flex align-items-center gap-2">
-                            {% if recipe.user and recipe.user.profile and recipe.user.profile.profile_photo %}
-                                <img src="{{ recipe.user.profile.profile_photo.url }}" alt="profile photo" class="rounded-circle" style="width:30px;height:30px; object-fit:cover; border:1px solid #ddd;">
-                            {% else %}
-                                <span class="rounded-circle bg-dark text-white d-inline-flex align-items-center justify-content-center" style="width:30px;height:30px; font-size:12px; font-weight:700; line-height:1;">
-                                    {{ recipe.user.username|first|upper|default:"U" }}
-                                </span>
-                            {% endif %}
-                            <small>Created by: {{ recipe.user.username|default:"Unknown" }} </small>
-                        </div>
-                    </div>
+                        {% endif %}
                 </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                            {% if recipe.user and recipe.user.profile and recipe.user.profile.profile_photo %}
+                                    <img src="{{ recipe.user.profile.profile_photo.url }}" alt="profile photo" class="rounded-circle" style="width:30px;height:30px; object-fit:cover; border:1px solid #ddd;">
+                                {% else %}
+                                <span class="rounded-circle bg-dark text-white d-inline-flex align-items-center justify-content-center" style="width:30px;height:30px; font-size:12px; font-weight:700; line-height:1;">
+                                        {{ recipe.user.username|first|upper|default:"U" }}
+                                 </span>
+                            {% endif %}
+                                <small class="text-muted">Created by: {{ recipe.user.username|default:"Unknown" }}</small>
+                    </div>
+
+                        <h5 class="card-title mb-2">{{ recipe.name }}</h5>
+                                 <p class="card-text mb-2">{{ recipe.description|truncatewords:20 }}</p>
+                            <p class="card-text"><small class="text-muted">Added {{ recipe.date_added|date:"M d, Y H:i" }}</small></p>
+                        <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="btn btn-sm btn-outline-dark">Open recipe details</a>
+                    </div>
+                 </div>
+            </div>
         </div>
     {% endfor %}
- </div>
+</div>
 
 {% endblock content %}
