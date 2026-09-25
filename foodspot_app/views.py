@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from foodspot_app.forms import CategoryForm, RecipeForm
 from .models import Category
 from recipes.models import Recipe
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     categories = Category.objects.all()
@@ -14,7 +15,7 @@ def recipes(request, category_id):
     category= Category.objects.get(pk=category_id)
     context={"recipes":recipes, "category":category}
     return render(request,"foodspot_app/recipes.html",context)
-
+@login_required(login_url="/accounts/login/")
 def add_category(request):
     if request.method =="POST":
         form = CategoryForm(request.POST)
@@ -22,13 +23,13 @@ def add_category(request):
             form.save()
             return redirect("foodspot_app:index")
         else:
-            return render(request, "foodspot_app/add_category.html",context)
+            return render(request, "foodspot_app/add_category.html", context)
     else:
         form=CategoryForm()
         context={"form":form}
         return render(request, "foodspot_app/add_category.html",context)
 
-
+@login_required(login_url="/accounts/login/")
 def add_recipe(request,category_id=None):
     category = None
     if category_id:
@@ -39,7 +40,9 @@ def add_recipe(request,category_id=None):
     else:
         form = RecipeForm(request.POST or None)
     if request.method =="POST" and form.is_valid():
-        new_recipe = form.save()
+        new_recipe = form.save(commit=False)
+        new_recipe.user=request.user
+        new_recipe.save()
         return redirect("foodspot_app:recipes",category_id=new_recipe.category.id)
     context={"form":form, "category":category}
     return render(request, "foodspot_app/add_recipe.html", context)
