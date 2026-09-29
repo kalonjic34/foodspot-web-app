@@ -39,6 +39,54 @@
         color: #555 !important;
       }
 
+      .btn-tertiary {
+        color: #243c36 !important;
+        background-color: #e5efeb;
+        border: 1px solid #c7d9d2;
+        border-radius: 0.375rem;
+        margin-inline: 0.25rem;
+        padding: 0.375rem 0.75rem;
+      }
+
+      .btn-tertiary:hover,
+      .btn-tertiary:focus {
+        color: #172923 !important;
+        background-color: #d3e3dc;
+        border-color: #afc9bf;
+      }
+
+      .navbar .btn-create-recipe {
+        color: #fff !important;
+        background-color: #347653;
+        border: 1px solid #347653;
+        border-radius: 0.375rem;
+        margin-inline: 0.25rem;
+        padding: 0.375rem 0.75rem;
+      }
+
+      .navbar .btn-create-recipe:hover,
+      .navbar .btn-create-recipe:focus {
+        color: #fff !important;
+        background-color: #285e41;
+        border-color: #285e41;
+      }
+
+      .navbar .btn-browse-recipes {
+        color: #60480f !important;
+        background-color: #f5e8c7;
+        border: 1px solid #e8d39b;
+        border-radius: 0.375rem;
+        margin-inline: 0.25rem;
+        padding: 0.375rem 0.75rem;
+      }
+
+      .navbar .btn-browse-recipes:hover,
+      .navbar .btn-browse-recipes:focus {
+        color: #493609 !important;
+        background-color: #ecd99f;
+        border-color: #dcc27b;
+      }
+
       .navbar .navbar-toggler {
         border-color: #000;
       }
@@ -75,10 +123,13 @@
           </form>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "foodspot_app:add_recipe_no_genre" %}">Create a recipe</a>
+          <a class="nav-link btn btn-create-recipe" href="{% url "foodspot_app:add_recipe_no_genre" %}">Create a recipe</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "recipes:index" %}">Browse recipes</a>
+          <a class="nav-link btn btn-browse-recipes" href="{% url "recipes:index" %}">Browse recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active btn btn-tertiary" href="{% url "recipes:favorite_recipes" %}">Saved Meals</a>
         </li>
         <li class="nav-item d-flex align-items-center">
           {% if user.profile.profile_photo %}
