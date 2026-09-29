@@ -12,6 +12,17 @@
             <p>{{ recipe.ingredients }}</p>
             <i>How to make it</i>
             <p>{{ recipe.directions }}</p>
+            <div class="card-text">
+                <form action="{% url "recipes:toggle_favorite" recipe_id=recipe.id %}" method="post">
+                    {% csrf_token %}
+                    {% if recipe in user.favorite_recipes.all %}
+                    <button class="btn btn-warning"type="submit">Remove from Favorite</button>
+                        {% else %}
+                    <button class="btn btn-primary"type="submit">Add to Favorite</button>
+
+                    {% endif %}
+                </form>
+            </div>
         </div>
     </div>
 
