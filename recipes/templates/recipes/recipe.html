@@ -13,15 +13,18 @@
             <i>How to make it</i>
             <p>{{ recipe.directions }}</p>
             <div class="card-text">
-                <form action="{% url "recipes:toggle_favorite" recipe_id=recipe.id %}" method="post">
-                    {% csrf_token %}
-                    {% if recipe in user.favorite_recipes.all %}
-                    <button class="btn btn-warning"type="submit">Remove from Favorite</button>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'recipes:toggle_favorite' recipe_id=recipe.id %}" method="post">
+                        {% csrf_token %}
+                        {% if recipe in user.favorite_recipes.all %}
+                            <button class="btn btn-warning" type="submit">Remove from Favorite</button>
                         {% else %}
-                    <button class="btn btn-primary"type="submit">Add to Favorite</button>
-
-                    {% endif %}
-                </form>
+                            <button class="btn btn-primary" type="submit">Add to Favorite</button>
+                        {% endif %}
+                    </form>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}">Login to add to Favorite</a>
+                {% endif %}
             </div>
         </div>
     </div>
