@@ -69,6 +69,12 @@
       <ul class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
+          <form class="d-flex" action="{% url "recipes:search_results" %}" ,method="get">
+            {{ search_form.query }}
+            <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit">Search</button>
+          </form>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url "foodspot_app:add_recipe_no_genre" %}">Create a recipe</a>
         </li>
         <li class="nav-item">
