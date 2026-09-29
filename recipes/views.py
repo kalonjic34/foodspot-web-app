@@ -1,9 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from comments.forms import CommentForm
-from foodspot_app.forms import RecipeForm
-from foodspot_app.models import Category
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from .models import Recipe
@@ -57,3 +55,17 @@ def search_results(request):
         'query':query, 'results':unique_results
     }
     return render(request, 'recipes/search_results.html',context)
+@login_required
+def toggle_favorite(request,recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.user in recipe.favorited_by.all():
+        recipe.favorited_by.remove(request.user)
+    else:
+        recipe.favorited_by.add(request.user)
+    return redirect("recipes:recipe_detail",recipe_id=recipe.id)
+
+@login_required
+def favorite_recipes(request):
+    favorites = request.user.favorite_recipes.all()
+    context = {"recipes": favorites}
+    return render(request, "recipes/favorite_recipes.html", context)
