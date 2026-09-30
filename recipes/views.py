@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from foodspot_app.forms import RecipeForm
+from rest_framework import viewsets
+
+from recipes.serializers import RecipeSerializer
 
 from .models import Recipe
 
@@ -104,3 +107,10 @@ def edit_recipe(request,recipe_id):
         
     }
     return render(request,"recipes/recipe_form.html",context)
+
+class RecipeViewSet(viewsets.ModelViewSet):
+    queryset=Recipe.objects.all()
+    serializer_class = RecipeSerializer
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        
