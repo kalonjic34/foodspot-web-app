@@ -39,8 +39,7 @@ def recipe_detail(request, recipe_id):
     return render(request, 'recipes/recipe.html', context)
 
 def search_results(request):
-    query=request.GET.get('query','')
-    # results = Recipe.objects.filter(name__icontains=query) if query else []
+    query = request.GET.get('query', '')
     if query:
         results = Recipe.objects.filter(
             Q(name__icontains=query)
@@ -48,19 +47,11 @@ def search_results(request):
             | Q(ingredients__icontains=query)
             | Q(directions__icontains=query)
             | Q(category__name__icontains=query)
-        )
-        seen_ids  = set()
-        unique_results = []
-        for result in results:
-            if result.id not in seen_ids:
-                unique_results.append(result)
-                seen_ids.add(result.id)
+        ).distinct()
     else:
-        unique_results=[]
-    context={
-        'query':query, 'results':unique_results
-    }
-    return render(request, 'recipes/search_results.html',context)
+        results = Recipe.objects.none()
+    context = {'query': query, 'results': results}
+    return render(request, 'recipes/search_results.html', context)
 @login_required
 def toggle_favorite(request,recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
