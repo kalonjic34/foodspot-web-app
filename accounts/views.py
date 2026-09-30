@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -13,7 +12,7 @@ def register(request):
         if form.is_valid():
             new_user = form.save()
             login(request,new_user)
-            return HttpResponse("user created!")
+            return redirect("foodspot_app:index")
     context={"form":form}
     return render(request,"registration/register.html",context)
 
