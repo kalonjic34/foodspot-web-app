@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'workspace',
     'foodspot_app',
     'recipes',
     'comments',
