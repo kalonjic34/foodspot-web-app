@@ -102,6 +102,46 @@
         margin: 0;
         padding: 1rem;
       }
+
+      @media (max-width: 1199.98px) {
+        .container,
+        .container-fluid {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      @media (max-width: 991.98px) {
+        .navbar .navbar-collapse {
+          padding-top: 0.75rem;
+        }
+
+        .navbar .navbar-nav {
+          align-items: stretch;
+        }
+
+        .navbar form.d-flex {
+          width: 100%;
+        }
+
+        .navbar form.d-flex input {
+          flex: 1;
+          min-width: 0;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        .container,
+        .container-fluid {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        footer pre {
+          padding: 0.75rem 0;
+          white-space: normal;
+        }
+      }
     </style>
 </head>
 <body>
