@@ -22,7 +22,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("workspace/", include(("workspace.urls", "workspace"), namespace="workspace")),
     path("", include(("foodspot_app.urls", "foodspot_app"), namespace="foodspot_app")),
     path("recipes/", include(("recipes.urls", "recipes"), namespace="recipes")),
     path("comments/", include(("comments.urls", "comments"), namespace="comments")),
